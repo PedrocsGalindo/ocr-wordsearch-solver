@@ -41,3 +41,6 @@ Resultado Final:
 A função retorna uma string indicando a região predominante, combinando as informações horizontais e verticais, como 'right top', 'middle down', etc.
 
 Se nenhuma palavra com mais de quatro letras for detectada, a função retorna None.​
+
+
+"O idealizador deste projeto reconhece que existem abordagens mais eficazes para essa análise. Em vez de realizar apenas a contagem simples dos elementos, uma alternativa seria somar as distâncias entre os pontos, de forma a obter uma ponderação mais precisa da distribuição.
