@@ -11,36 +11,50 @@ A detecção da regiao da foto foi feita apartir de seguinte logica: achado os c
 
 ​A função detect_words_region tem como objetivo identificar a região predominante das palavras detectadas em uma imagem, utilizando os dados fornecidos pelo OCR (Optical Character Recognition) do Tesseract. Essa análise é baseada na posição das palavras em relação ao centro da imagem, considerando apenas aquelas com mais de quatro caracteres.​
 
+🧭 Detecção da Região Predominante do Texto na Imagem
+A função detect_words_region tem como objetivo identificar onde o texto está concentrado em uma imagem, com base na saída do OCR (Optical Character Recognition) do Tesseract.
+
+Essa análise considera palavras com mais de 4 letras e verifica se elas estão posicionadas majoritariamente à esquerda, direita, acima ou abaixo do centro da imagem — retornando regiões como:
+"right top", "left down", "middle middle", etc.
+
 🧠 Lógica de Funcionamento
-Determinação do Centro da Imagem:
+1. Determinação do Centro da Imagem
+A imagem é dividida horizontal e verticalmente ao meio, definindo os pontos médios dos eixos X e Y.
+Esses pontos são usados como referência para classificar onde cada palavra está localizada.
 
-A imagem é dividida horizontal e verticalmente ao meio, calculando-se os pontos médios dos eixos X e Y.​
+2. Análise das Palavras Detectadas
+Para cada palavra com mais de 4 letras:
 
-Análise das Palavras Detectadas:
+Calcula-se o centro da bounding box (caixa que envolve a palavra).
 
-Para cada palavra com mais de quatro letras, calcula-se o ponto central da sua caixa delimitadora (bounding box).
+Verifica-se se esse centro está:
 
-Compara-se esse ponto com os pontos médios da imagem para determinar em qual região (esquerda/direita e superior/inferior) a palavra se encontra.​
+à direita ou esquerda do ponto médio no eixo X;
 
-Contagem por Região:
+acima ou abaixo do ponto médio no eixo Y.
 
-Incrementa-se contadores para cada uma das quatro regiões: esquerda, direita, superior e inferior.​
+Palavras são filtradas para evitar ruídos e garantir uma análise mais precisa.
 
-Determinação da Região Predominante:
+3. Contagem por Região
+São mantidos 4 contadores:
 
-Calcula-se a proporção de palavras em cada região.
+left e right: para o eixo horizontal
 
-Se uma região contém mais de 60% das palavras, ela é considerada predominante.
+top e down: para o eixo vertical
 
-Se nenhuma região atinge esse limiar, mas uma delas contém mais de 40%, a posição é considerada central.
+Cada palavra qualificada incrementa o contador correspondente à sua posição.
 
-Caso contrário, a região oposta é considerada predominante.​
+4. Cálculo de Proporções
+Com os dados coletados:
 
-Resultado Final:
+Se mais de 60% das palavras estão em uma extremidade, ela é considerada predominante.
 
-A função retorna uma string indicando a região predominante, combinando as informações horizontais e verticais, como 'right top', 'middle down', etc.
+Se entre 40% e 60%, considera-se a posição como central (middle).
 
-Se nenhuma palavra com mais de quatro letras for detectada, a função retorna None.​
+Se abaixo de 40%, considera-se a extremidade oposta como predominante.
+
+5. Resultado Final
+A função retorna uma string indicando a região predominante combinando os dois eixos:
 
 
-"O idealizador deste projeto reconhece que existem abordagens mais eficazes para essa análise. Em vez de realizar apenas a contagem simples dos elementos, uma alternativa seria somar as distâncias entre os pontos, de forma a obter uma ponderação mais precisa da distribuição.
+O idealizador deste projeto reconhece que existem abordagens mais eficazes para essa análise. Em vez de realizar apenas a contagem simples dos elementos, uma alternativa seria somar as distâncias entre os pontos, de forma a obter uma ponderação mais precisa da distribuição.
