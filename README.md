@@ -5,6 +5,8 @@ adicionar arquivo para processamento no direotiro data
 
 Necessario ter instalado o engine tesseract e adicionado ao seu Path
 
+O caça palavras tem que seguir uma estrutura onde as palavras a serem pesquisadas estão agrupadas na mesma região (facilitando a indificação)
+
 Para detectar a região das palavras primeiramente determinar a região predominante das palavras detectadas em uma imagem (ex: canto superior direito, canto inferior no meio ...)
 
 A detecção da regiao da foto foi feita apartir de seguinte logica: 
