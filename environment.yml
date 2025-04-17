@@ -12,4 +12,5 @@ dependencies:
   - pytesseract
   - matplotlib
   - python-dotenv
+  - pandas
 prefix: C:\Users\pedro\anaconda3\envs\wordsearch-env
